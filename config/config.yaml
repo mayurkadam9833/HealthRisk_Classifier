@@ -1,0 +1,7 @@
+artifacts_root: artifacts               # main artifact folder 
+
+data_ingestion: 
+ root_dir: artifacts/data_ingestion    # folder for data ingestion step
+ source_url: https://github.com/mayurkadam9833/Datasets/raw/refs/heads/main/health_data.zip  # source url for download data
+ local_data_file: artifacts/data_ingestion/health_data.zip   # downloaded file path
+ unzip_dir: artifacts/data_ingestion                         # unzip dataset path

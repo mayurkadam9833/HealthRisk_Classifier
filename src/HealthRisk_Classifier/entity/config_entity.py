@@ -9,3 +9,14 @@ class DataIngestionConfig:
     source_url: str 
     local_data_file: Path 
     unzip_dir: Path
+
+"""DataValidationConfig class will return
+dataset path,data validation folder,target column, all_columns from schema 
+for data validation process """
+@dataclass(frozen=True)
+class DataValidationConfig: 
+    root_dir: Path 
+    unzip_data_path: Path 
+    validation: str
+    target_col: str 
+    all_schema: dict

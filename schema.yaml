@@ -1,0 +1,23 @@
+COLUMNS: 
+ Age                :  float64
+ Gender             :  object 
+ Medical Condition  :  object 
+ Glucose            :  float64
+ Blood Pressure     :  float64
+ BMI                :  float64
+ Oxygen Saturation  :  float64
+ LengthOfStay       :  int64  
+ Cholesterol        :  float64
+ Triglycerides      :  float64
+ HbA1c              :  float64
+ Smoking            :  int64  
+ Alcohol            :  int64  
+ Physical Activity  :  float64
+ Diet Score         :  float64
+ Family History     :  int64  
+ Stress Level       :  float64
+ Sleep Hours        :  float64
+ random_notes       :  object 
+ noise_col          :  float64
+TARGET_COLUMN:
+ Medical Condition  :  object 

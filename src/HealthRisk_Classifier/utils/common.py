@@ -25,7 +25,7 @@ def read_yaml(path_to_yaml:Path)-> ConfigBox:
 
 # Function for creating new directories
 @ensure_annotations 
-def create_dir(file_path:list,verbose:True): 
+def create_dir(file_path:list,verbose=True): 
     for path in file_path: 
         os.makedirs(path,exist_ok=True)
         if verbose: 

@@ -5,3 +5,8 @@ data_ingestion:
  source_url: https://github.com/mayurkadam9833/Datasets/raw/refs/heads/main/health_data.zip  # source url for download data
  local_data_file: artifacts/data_ingestion/health_data.zip   # downloaded file path
  unzip_dir: artifacts/data_ingestion                         # unzip dataset path
+
+data_validation: 
+ root_dir: artifacts/data_validation        # folder for data validation step           
+ unzip_data_path: artifacts/data_ingestion/health_data.csv  # unzip data path
+ validation: artifacts/data_validation/status_file.txt      # valdiation file path

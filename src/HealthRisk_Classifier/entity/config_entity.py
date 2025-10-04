@@ -19,3 +19,11 @@ class DataValidationConfig:
     unzip_data_path: Path 
     validation: str
     all_schema: dict
+
+"""DataTransformationConfig class will return
+data transformation folder path,dataset path,target column for data transformation"""
+@dataclass(frozen=True)
+class DataTransformationConfig: 
+    root_dir: Path
+    data_file: Path
+    target_col: str 

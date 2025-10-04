@@ -1,7 +1,7 @@
 from src.HealthRisk_Classifier.logging import logger
 from src.HealthRisk_Classifier.pipeline.data_ingestion_pipeline import DataIngestionPipeline
 from src.HealthRisk_Classifier.pipeline.data_validation_pipeline import DataValidationPipeline
-
+from src.HealthRisk_Classifier.pipeline.data_transformation_pipeline import DataTransformationPipeline
 
 # data ingestion pipeline execution
 stage_one="Data Ingestion"
@@ -24,6 +24,20 @@ if __name__=="__main__":
         obj=DataValidationPipeline()
         obj.main()
         logger.info(f"<<<< stage: {stage_two} completed")
+    
+    except Exception as e: 
+        logger.info(e)
+        raise e
+
+
+# data transformation pipeline execution
+stage_three="Data Transformation"
+if __name__=="__main__": 
+    try: 
+        logger.info(f"<<<< stage: {stage_three} started")
+        obj=DataTransformationPipeline()
+        obj.main()
+        logger.info(f"<<<< stage: {stage_three} completed")
     
     except Exception as e: 
         logger.info(e)

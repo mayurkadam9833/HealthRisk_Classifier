@@ -1,6 +1,6 @@
 from src.HealthRisk_Classifier.constants import *
 from src.HealthRisk_Classifier.utils.common import read_yaml,create_dir
-from src.HealthRisk_Classifier.entity.config_entity import DataIngestionConfig,DataValidationConfig
+from src.HealthRisk_Classifier.entity.config_entity import DataIngestionConfig,DataValidationConfig,DataTransformationConfig
 
 
 """
@@ -47,7 +47,7 @@ class ConfigManager:
         # create data validation folder
         create_dir([config.root_dir])
 
-        # create data validation folder
+        # prepare and return DataValidationConfig dataclass
         data_validation_config=DataValidationConfig(
             root_dir=config.root_dir,
             unzip_data_path=config.unzip_data_path,
@@ -55,3 +55,20 @@ class ConfigManager:
             all_schema=schema
         )
         return data_validation_config
+    
+
+    # method to get data transformation config object
+    def get_data_transformation_config(self)-> DataTransformationConfig: 
+        config=self.config.data_transformation 
+        schema=self.schema.TARGET_COLUMN
+
+        # create data transformation folder
+        create_dir([config.root_dir])
+
+        # prepare and return DataTransformationConfig dataclass
+        data_transformation_config=DataTransformationConfig(
+            root_dir=config.root_dir,
+            data_file=config.data_file,
+            target_col=list(schema.keys())[0]
+        )
+        return data_transformation_config

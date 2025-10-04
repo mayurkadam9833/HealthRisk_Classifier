@@ -10,3 +10,7 @@ data_validation:
  root_dir: artifacts/data_validation        # folder for data validation step           
  unzip_data_path: artifacts/data_ingestion/health_data.csv  # unzip data path
  validation: artifacts/data_validation/status_file.txt      # valdiation file path
+
+data_transformation: 
+ root_dir: artifacts/data_transformation               # folder for data transformation step
+ data_file: artifacts/data_ingestion/health_data.csv   # dataset path   

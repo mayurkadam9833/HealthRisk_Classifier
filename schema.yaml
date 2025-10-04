@@ -1,7 +1,6 @@
 COLUMNS: 
  Age                :  float64
  Gender             :  object 
- Medical Condition  :  object 
  Glucose            :  float64
  Blood Pressure     :  float64
  BMI                :  float64

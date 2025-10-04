@@ -18,5 +18,4 @@ class DataValidationConfig:
     root_dir: Path 
     unzip_data_path: Path 
     validation: str
-    target_col: str 
     all_schema: dict

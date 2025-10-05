@@ -27,3 +27,15 @@ class DataTransformationConfig:
     root_dir: Path
     data_file: Path
     target_col: str 
+
+@dataclass(frozen=True)
+class ModelTrainerConfig: 
+    root_dir:Path                 
+    train_data_path: Path
+    model_name: str 
+    learning_rate: float
+    n_estimators: int
+    max_depth: int
+    min_samples_split: int
+    min_samples_leaf: int 
+    target_col: str

@@ -1,6 +1,6 @@
 GradientBoostingClassifier: 
  learning_rate: 0.1 
  n_estimators: 50
- max_dept: 10
+ max_depth: 10
  min_samples_split: 2
  min_samples_leaf: 2

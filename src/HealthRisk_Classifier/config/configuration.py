@@ -1,6 +1,6 @@
 from src.HealthRisk_Classifier.constants import *
 from src.HealthRisk_Classifier.utils.common import read_yaml,create_dir
-from src.HealthRisk_Classifier.entity.config_entity import DataIngestionConfig,DataValidationConfig,DataTransformationConfig
+from src.HealthRisk_Classifier.entity.config_entity import DataIngestionConfig,DataValidationConfig,DataTransformationConfig,ModelTrainerConfig
 
 
 """
@@ -72,3 +72,26 @@ class ConfigManager:
             target_col=list(schema.keys())[0]
         )
         return data_transformation_config
+    
+    # method to get model trainer config object
+    def get_model_trainer_config(self)-> ModelTrainerConfig: 
+        config=self.config.model_trainer 
+        schema=self.schema.TARGET_COLUMN 
+        params=self.params.GradientBoostingClassifier
+
+        # create model trainer folder
+        create_dir([config.root_dir])
+
+        # prepare and return ModelTrainerConfig dataclass
+        model_trainer_config=ModelTrainerConfig(
+            root_dir=config.root_dir,              
+            train_data_path=config.train_data_path,
+            model_name=config.model_name,
+            learning_rate=params.learning_rate,
+            n_estimators=params.n_estimators,
+            max_depth=params.max_depth,
+            min_samples_split=params.min_samples_split,
+            min_samples_leaf=params.min_samples_leaf,
+            target_col=list(schema.keys())[0]
+        )
+        return model_trainer_config

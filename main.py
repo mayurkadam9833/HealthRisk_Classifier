@@ -2,7 +2,7 @@ from src.HealthRisk_Classifier.logging import logger
 from src.HealthRisk_Classifier.pipeline.data_ingestion_pipeline import DataIngestionPipeline
 from src.HealthRisk_Classifier.pipeline.data_validation_pipeline import DataValidationPipeline
 from src.HealthRisk_Classifier.pipeline.data_transformation_pipeline import DataTransformationPipeline
-from src.HealthRisk_Classifier.pipeline.model_trainer_pipeline import ModelTrainerPipeline
+from HealthRisk_Classifier.utils.model_trainer_pipeline import ModelTrainerPipeline
 from src.HealthRisk_Classifier.pipeline.model_evaluation_pipeline import ModelEvaluationPipeline
 
 # data ingestion pipeline execution

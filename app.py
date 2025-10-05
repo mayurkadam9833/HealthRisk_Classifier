@@ -1,31 +1,64 @@
+import base64
 import streamlit as st 
 import pandas as pd
+from pathlib import Path
 from src.HealthRisk_Classifier.pipeline.prediction_pipeline import Prediction_pipeline
 
-st.title("Health Risk classifier")
+st.title("``Health Risk classifier``")
+st.markdown("``This web application allows users to input personal health and lifestyle data to predict health risk categories.``")
 
+# Function to set background image using base64 encoding
+def get_background(image_file): 
+    with open(image_file,"rb")as file: 
+        data=file.read()
+        encoded = base64.b64encode(data).decode()
 
-age = st.sidebar.number_input(label="Age", min_value=10, max_value=90)
-Glucose = st.sidebar.number_input(label="Glucose", min_value=20, max_value=500)
-Blood_Pressure = st.sidebar.number_input(label="Blood Pressure", min_value=20, max_value=500)
-BMI = st.sidebar.number_input(label="BMI", min_value=10, max_value=100)
-Oxygen_Saturation = st.sidebar.number_input(label="Oxygen Saturation", min_value=20, max_value=100)
-LengthOfStay = st.sidebar.number_input(label="Length of Stay (Days)", min_value=1, max_value=365)
-Cholesterol = st.sidebar.number_input(label="Cholesterol", min_value=50, max_value=400)
-Triglycerides = st.sidebar.number_input(label="Triglycerides", min_value=50, max_value=500)
-HbA1c = st.sidebar.number_input(label="HbA1c", min_value=3.0, max_value=15.0)
-Physical_Activity = st.sidebar.number_input(label="Physical Activity (hours/week)", min_value=0, max_value=50)
-Diet_Score = st.sidebar.number_input(label="Diet Score", min_value=0, max_value=100)
-Stress_Level = st.sidebar.number_input(label="Stress Level (1–10)", min_value=1, max_value=10)
-Sleep_Hours = st.sidebar.number_input(label="Sleep Hours", min_value=1, max_value=24)
+        css = f"""
+    <style>
+    .stApp {{
+        background-image: url("data:image/jpg;base64,{encoded}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }}
+    </style>
+    """
+    st.markdown(css, unsafe_allow_html=True)
 
-# Categorical inputs
-Smoking = st.sidebar.selectbox("Smoking", ["Yes", "No"])
-Alcohol = st.sidebar.selectbox("Alcohol", ["Yes", "No"])
-Family_History = st.sidebar.selectbox("Family History", ["Yes", "No"])
+# Setting background image
+get_background(Path(".streamlit") / "background.png")
 
+# Create columns for side-by-side inputs
+col1, col2, col3 = st.columns(3)
 
-if st.button("health risk"): 
+with col1:
+    age = st.number_input("``Age``", min_value=0, max_value=120)
+    Glucose = st.number_input("``Glucose Level``")
+    Blood_Pressure = st.number_input("``Blood Pressure``")
+    BMI = st.number_input("``BMI``")
+
+with col2:
+    Oxygen_Saturation = st.number_input("``Oxygen Saturation``")
+    LengthOfStay = st.number_input("``Length of Stay``")
+    Cholesterol = st.number_input("``Cholesterol``")
+    Triglycerides = st.number_input("``Triglycerides``")
+
+with col3:
+    HbA1c = st.number_input("``HbA1c``")
+    Diet_Score = st.number_input("``Diet Score``")
+    Physical_Activity = st.number_input("``Physical Activity``")
+    Stress_Level = st.number_input("``Stress Level``")
+
+# Another row for remaining features
+col4, col5 = st.columns(2)
+with col4:
+    Sleep_Hours = st.number_input("``Sleep Hours``")
+    Alcohol = st.selectbox("Alcohol", ["Yes", "No"],key="alcohol")
+with col5:
+    Family_History = st.selectbox("``Family History``", ["Yes", "No"],key="family_history")
+    Smoking = st.selectbox("``Smoking``", ["Yes", "No"],key="smoking")
+
+if st.button("Health Risk"): 
     Smoking = 1 if Smoking == "Yes" else 0
     Alcohol = 1 if Alcohol == "Yes" else 0
     Family_History = 1 if Family_History == "Yes" else 0

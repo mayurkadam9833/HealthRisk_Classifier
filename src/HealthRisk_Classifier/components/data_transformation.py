@@ -2,6 +2,7 @@ import os
 import joblib
 import pandas as pd 
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
 from imblearn.over_sampling import SMOTE
 from sklearn.preprocessing import StandardScaler
 from src.HealthRisk_Classifier.entity.config_entity import DataTransformationConfig
@@ -13,13 +14,14 @@ from src.HealthRisk_Classifier.logging import logger
 class DataTransformation:
     def __init__(self,config:DataTransformationConfig):
         self.config=config 
+        self.encode=LabelEncoder()
         self.sample=SMOTE()
         self.scale=StandardScaler()
     
     # method to drop irrelvent columns
     def drop_features(self): 
         data=pd.read_csv(self.config.data_file)
-        data.drop(["Gender","random_notes"],axis=1,inplace=True)
+        data.drop(["Gender","random_notes","noise_col"],axis=1,inplace=True)
         return data 
     
     # method to drop missing rows in target column
@@ -39,14 +41,8 @@ class DataTransformation:
     # method to encode data
     def encode_data(self): 
         data=self.fill_na_values()
-        data[self.config.target_col]=data[self.config.target_col].replace({
-                                                                    "Hypertension":0,
-                                                                    "Diabetes":1,
-                                                                    "Obesity":2,
-                                                                    "Healthy":3,
-                                                                    "Asthma":4,
-                                                                    "Arthritis":5,
-                                                                    "Cancer":6})
+        data[self.config.target_col]=self.encode.fit_transform(data[self.config.target_col])
+        joblib.dump(self.encode,os.path.join(self.config.root_dir,"encode.joblib"))
         return data
     
     # method to oversampling, scaling, split into train and test
@@ -66,6 +62,7 @@ class DataTransformation:
         #scaling data
         scale_train_x=self.scale.fit_transform(sample_train_x)
         scale_test_x=self.scale.transform(test_x)
+        joblib.dump(self.scale,os.path.join(self.config.root_dir,"scale.joblib"))
 
         # concat target and input columns
         train=pd.concat([pd.DataFrame(scale_train_x).reset_index(drop=True),sample_train_y.reset_index(drop=True)],axis=1)

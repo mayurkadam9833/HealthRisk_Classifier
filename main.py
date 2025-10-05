@@ -3,6 +3,7 @@ from src.HealthRisk_Classifier.pipeline.data_ingestion_pipeline import DataInges
 from src.HealthRisk_Classifier.pipeline.data_validation_pipeline import DataValidationPipeline
 from src.HealthRisk_Classifier.pipeline.data_transformation_pipeline import DataTransformationPipeline
 from src.HealthRisk_Classifier.pipeline.model_trainer_pipeline import ModelTrainerPipeline
+from src.HealthRisk_Classifier.pipeline.model_evaluation_pipeline import ModelEvaluationPipeline
 
 # data ingestion pipeline execution
 stage_one="Data Ingestion"
@@ -52,6 +53,19 @@ if __name__=="__main__":
         obj=ModelTrainerPipeline()
         obj.main()
         logger.info(f"<<<< stage: {stage_four} completed")
+    
+    except Exception as e: 
+        logger.info(e)
+        raise e
+    
+# Model Evaluation pipeline execution
+stage_five="Model Evaluation"
+if __name__=="__main__": 
+    try: 
+        logger.info(f"<<<< stage: {stage_five} started")
+        obj=ModelEvaluationPipeline()
+        obj.main()
+        logger.info(f"<<<< stage: {stage_five} completed")
     
     except Exception as e: 
         logger.info(e)

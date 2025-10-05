@@ -28,6 +28,8 @@ class DataTransformationConfig:
     data_file: Path
     target_col: str 
 
+"""ModelTrainerConfig class will return
+model trainer folder path,traindata path,target column,model path,parameters for model trainer"""
 @dataclass(frozen=True)
 class ModelTrainerConfig: 
     root_dir:Path                 
@@ -38,4 +40,15 @@ class ModelTrainerConfig:
     max_depth: int
     min_samples_split: int
     min_samples_leaf: int 
+    target_col: str
+
+
+"""ModelEvaluationConfig class will return
+model Evaluation folder path,testdata path,target column,model path for model Evaluation"""
+@dataclass(frozen=True)
+class ModelEvaluationConfig: 
+    root_dir: Path 
+    test_data_path: Path
+    model_path: Path 
+    evaluation: str
     target_col: str

@@ -4,7 +4,9 @@ import pandas as pd
 from pathlib import Path
 from src.HealthRisk_Classifier.pipeline.prediction_pipeline import Prediction_pipeline
 
+# title for web app
 st.title("``Health Risk classifier``")
+# short description
 st.markdown("``This web application allows users to input personal health and lifestyle data to predict health risk categories.``")
 
 # Function to set background image using base64 encoding
@@ -59,9 +61,12 @@ with col5:
     Smoking = st.selectbox("``Smoking``", ["Yes", "No"],key="smoking")
 
 if st.button("Health Risk"): 
+    # encoding categorical data
     Smoking = 1 if Smoking == "Yes" else 0
     Alcohol = 1 if Alcohol == "Yes" else 0
     Family_History = 1 if Family_History == "Yes" else 0
+
+    # create dataframe of input features
     input_data = pd.DataFrame({
     "Age": [age],
     "Glucose": [Glucose],
@@ -79,8 +84,15 @@ if st.button("Health Risk"):
     "Family History": [Family_History],
     "Stress Level": [Stress_Level],
     "Sleep Hours": [Sleep_Hours]})
+
+    # create object of predictionpipeline
     pipeline=Prediction_pipeline()
     prediction = pipeline.prediction(input_data)
-    st.success(f"Predicted Class: {prediction[0]}")
+
+    # prediction
+    if prediction[0] == "Healthy":
+        st.success(f"✅ The person is {prediction[0]}")
+    else:
+        st.error(f"⚠️ Predicted Disease: {prediction[0]}")
 
     
